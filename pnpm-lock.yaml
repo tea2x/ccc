@@ -334,9 +334,6 @@ importers:
       '@ckb-ccc/lumos-patches':
         specifier: workspace:*
         version: link:../lumos-patches
-      '@ckb-ccc/udt':
-        specifier: workspace:*
-        version: link:../udt
       '@ckb-lumos/ckb-indexer':
         specifier: ^0.24.0-next.1
         version: 0.24.0-next.2

@@ -5,10 +5,9 @@ import {
   prepareSporeTransaction,
 } from "../advanced.js";
 import {
-  ClusterData,
-  ClusterDataV1,
   ClusterDataView,
   packRawClusterData,
+  unpackToRawClusterData,
 } from "../codec/index.js";
 import { findSingletonCellByArgs } from "../helper/index.js";
 import {
@@ -20,20 +19,32 @@ import {
 
 export async function findCluster(
   client: ccc.Client,
-  args: ccc.HexLike,
+  id: ccc.HexLike,
   scripts?: SporeScriptInfoLike[],
 ): Promise<
   | {
       cell: ccc.Cell;
+      cluster: ccc.Cell;
+      clusterData: ClusterDataView;
       scriptInfo: SporeScriptInfo;
     }
   | undefined
 > {
-  return findSingletonCellByArgs(
+  const found = await findSingletonCellByArgs(
     client,
-    args,
+    id,
     scripts ?? Object.values(getClusterScriptInfos(client)),
   );
+  if (!found) {
+    return;
+  }
+
+  return {
+    cell: found.cell,
+    cluster: found.cell,
+    clusterData: unpackToRawClusterData(found.cell.outputData),
+    scriptInfo: found.scriptInfo,
+  };
 }
 
 export async function assertCluster(
@@ -186,46 +197,44 @@ export async function transferSporeCluster(params: {
  * @param order the order in creation time of clusters
  * @param scriptInfos the deployed script infos of clusters
  */
-export async function* findSporeClustersBySigner(params: {
+export async function* findSporeClustersBySigner({
+  signer,
+  order,
+  limit,
+  scriptInfos,
+}: {
   signer: ccc.Signer;
   order?: "asc" | "desc";
+  limit?: number;
   scriptInfos?: SporeScriptInfoLike[];
 }): AsyncGenerator<{
+  cell: ccc.Cell;
   cluster: ccc.Cell;
   clusterData: ClusterDataView;
+  scriptInfo: SporeScriptInfo;
 }> {
-  const { signer, order, scriptInfos } = params;
   for (const scriptInfo of scriptInfos ??
     Object.values(getClusterScriptInfos(signer.client))) {
     if (!scriptInfo) {
       continue;
     }
+
     for await (const cluster of signer.findCells(
       {
         script: {
           ...scriptInfo,
-          args: [],
+          args: "",
         },
       },
       true,
       order,
-      10,
+      limit,
     )) {
-      let clusterData: ClusterDataView;
-      try {
-        clusterData = ClusterData.decode(cluster.outputData);
-      } catch (_) {
-        try {
-          clusterData = ClusterDataV1.decode(cluster.outputData);
-        } catch (e: unknown) {
-          throw new Error(
-            `Cluster data decode failed: ${(e as Error).toString()}`,
-          );
-        }
-      }
       yield {
+        cell: cluster,
         cluster,
-        clusterData,
+        clusterData: unpackToRawClusterData(cluster.outputData),
+        scriptInfo: SporeScriptInfo.from(scriptInfo),
       };
     }
   }

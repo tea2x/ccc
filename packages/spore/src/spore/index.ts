@@ -5,7 +5,11 @@ import {
   assembleTransferSporeAction,
   prepareSporeTransaction,
 } from "../advanced.js";
-import { SporeData, SporeDataView, packRawSporeData } from "../codec/index.js";
+import {
+  SporeDataView,
+  packRawSporeData,
+  unpackToRawSporeData,
+} from "../codec/index.js";
 import { findSingletonCellByArgs } from "../helper/index.js";
 import {
   SporeScriptInfo,
@@ -17,20 +21,32 @@ import { prepareCluster } from "./advanced.js";
 
 export async function findSpore(
   client: ccc.Client,
-  args: ccc.HexLike,
+  id: ccc.HexLike,
   scripts?: SporeScriptInfoLike[],
 ): Promise<
   | {
       cell: ccc.Cell;
+      spore: ccc.Cell;
+      sporeData: SporeDataView;
       scriptInfo: SporeScriptInfo;
     }
   | undefined
 > {
-  return findSingletonCellByArgs(
+  const found = await findSingletonCellByArgs(
     client,
-    args,
+    id,
     scripts ?? Object.values(getSporeScriptInfos(client)),
   );
+  if (!found) {
+    return undefined;
+  }
+
+  return {
+    cell: found.cell,
+    spore: found.cell,
+    sporeData: unpackToRawSporeData(found.cell.outputData),
+    scriptInfo: found.scriptInfo,
+  };
 }
 
 export async function assertSpore(
@@ -235,20 +251,28 @@ export async function meltSpore(params: {
  *
  * @param signer the owner of spores
  * @param order the order in creation time of spores
- * @param clusterId the cluster that spores belong to
+ * @param clusterId the cluster that spores belong to. "" to find public spores
  * @param scriptInfos the deployed script infos of spores
- * @returns speific spore cells
+ * @returns specified spore cells
  */
-export async function* findSporesBySigner(params: {
+export async function* findSporesBySigner({
+  signer,
+  clusterId,
+  scriptInfos,
+  limit,
+  order,
+}: {
   signer: ccc.Signer;
   order?: "asc" | "desc";
+  limit?: number;
   clusterId?: ccc.HexLike;
   scriptInfos?: SporeScriptInfoLike[];
 }): AsyncGenerator<{
+  cell: ccc.Cell;
   spore: ccc.Cell;
   sporeData: SporeDataView;
+  scriptInfo: SporeScriptInfo;
 }> {
-  const { signer, clusterId, scriptInfos, order } = params;
   for (const scriptInfo of scriptInfos ??
     Object.values(getSporeScriptInfos(signer.client))) {
     if (!scriptInfo) {
@@ -263,24 +287,20 @@ export async function* findSporesBySigner(params: {
       },
       true,
       order,
-      10,
+      limit,
     )) {
-      try {
-        const sporeData = SporeData.decode(spore.outputData);
-        if (!clusterId) {
-          yield {
-            spore,
-            sporeData,
-          };
-        }
-        if (sporeData.clusterId === clusterId) {
-          return {
-            spore,
-            sporeData,
-          };
-        }
-      } catch (e: unknown) {
-        throw new Error(`Spore data decode failed: ${(e as Error).toString()}`);
+      const sporeData = unpackToRawSporeData(spore.outputData);
+      if (
+        !clusterId ||
+        (clusterId === "" && !sporeData.clusterId) ||
+        sporeData.clusterId === ccc.hexFrom(clusterId)
+      ) {
+        yield {
+          cell: spore,
+          spore,
+          sporeData,
+          scriptInfo: SporeScriptInfo.from(scriptInfo),
+        };
       }
     }
   }
