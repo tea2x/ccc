@@ -78,14 +78,14 @@ export function numFrom(val: NumLike): Num {
     return val;
   }
 
+  if (val === "0x") {
+    return BigInt(0);
+  }
   if (typeof val === "string" || typeof val === "number") {
     return BigInt(val);
   }
 
   const hex = hexFrom(val);
-  if (hex === "0x") {
-    return BigInt(0);
-  }
   return BigInt(hex);
 }
 
