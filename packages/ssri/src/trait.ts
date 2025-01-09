@@ -78,6 +78,12 @@ export class Trait {
       "SSRI.version",
       [],
     );
-    return res.map((res) => ccc.numFrom(res));
+
+    return res.map((res) => {
+      if (res.length !== 4) {
+        throw new Error("Invalid U8");
+      }
+      return ccc.numFrom(res);
+    });
   }
 }
