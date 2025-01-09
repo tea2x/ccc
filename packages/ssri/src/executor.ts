@@ -20,6 +20,24 @@ export type ContextScript = {
   tx?: undefined | null;
 };
 
+export class ExecutorErrorUnknown extends Error {
+  constructor(msg?: string) {
+    super(msg);
+  }
+}
+
+export class ExecutorErrorExecutionFailed extends Error {
+  constructor(msg?: string) {
+    super(msg);
+  }
+}
+
+export class ExecutorErrorDecode extends Error {
+  constructor(msg?: string) {
+    super(msg);
+  }
+}
+
 export type ContextCode =
   | undefined
   | {
@@ -39,13 +57,11 @@ export class ExecutorResponse<T> {
   }
 
   map<U>(fn: (res: T) => U): ExecutorResponse<U> {
-    return new ExecutorResponse(fn(this.res), this.cellDeps);
-  }
-}
-
-export class ExecutorErrorExecutionFailed extends Error {
-  constructor(msg?: string) {
-    super(msg);
+    try {
+      return new ExecutorResponse(fn(this.res), this.cellDeps);
+    } catch (err) {
+      throw new ExecutorErrorDecode(JSON.stringify(err));
+    }
   }
 }
 
@@ -99,7 +115,7 @@ export class ExecutorJsonRpc extends Executor {
           !("code" in errAny) ||
           typeof errAny.code !== "number"
         ) {
-          throw errAny;
+          throw new ExecutorErrorUnknown(JSON.stringify(errAny));
         }
 
         if (errAny.code === 1003 || errAny.code === 1004) {
@@ -109,7 +125,10 @@ export class ExecutorJsonRpc extends Executor {
           throw new ExecutorErrorExecutionFailed();
         }
 
-        throw errAny;
+        if ("message" in errAny && typeof errAny.message === "string") {
+          throw new ExecutorErrorUnknown(errAny.message);
+        }
+        throw new ExecutorErrorUnknown();
       });
   }
 
