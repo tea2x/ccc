@@ -1,5 +1,10 @@
 import { ccc } from "@ckb-ccc/core";
-import { Executor, ExecutorResponse } from "./executor.js";
+import {
+  Executor,
+  ExecutorErrorDecode,
+  ExecutorErrorExecutionFailed,
+  ExecutorResponse,
+} from "./executor.js";
 import { getMethodPath } from "./utils.js";
 
 /**
@@ -17,6 +22,28 @@ export class Trait {
   constructor(code: ccc.OutPointLike, executor?: Executor | null) {
     this.code = ccc.OutPoint.from(code);
     this.executor = executor ?? undefined;
+  }
+
+  static async tryRun<T>(
+    call: Promise<ExecutorResponse<T>>,
+  ): Promise<ExecutorResponse<T | undefined>> {
+    try {
+      return await call;
+    } catch (e) {
+      if (
+        e instanceof ExecutorErrorExecutionFailed ||
+        e instanceof ExecutorErrorDecode
+      ) {
+        return ExecutorResponse.new(undefined);
+      }
+      throw e;
+    }
+  }
+
+  async tryRun<T>(
+    call: Promise<ExecutorResponse<T>>,
+  ): Promise<ExecutorResponse<T | undefined>> {
+    return Trait.tryRun(call);
   }
 
   assertExecutor() {
