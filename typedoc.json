@@ -3,10 +3,13 @@
   "name": "CCC Docs",
   "entryPoints": [
     "packages/core",
+    "packages/ssri",
+    "packages/udt",
+    "packages/spore",
+    "packages/shell",
     "packages/ccc",
     "packages/connector",
     "packages/connector-react",
-    "packages/spore",
     "packages/utxo-global",
     "packages/rei",
     "packages/joy-id",
@@ -16,8 +19,6 @@
     "packages/nip07",
     "packages/eip6963",
     "packages/lumos-patches",
-    "packages/udt",
-    "packages/ssri"
   ],
   "entryPointStrategy": "packages",
   "githubPages": true,
