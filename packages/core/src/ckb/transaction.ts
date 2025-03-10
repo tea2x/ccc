@@ -701,11 +701,13 @@ export class WitnessArgs extends mol.Entity.Base<
 }
 
 /**
+ * Convert a bytes to a num.
+ *
  * @public
  */
 export function udtBalanceFrom(dataLike: BytesLike): Num {
   const data = bytesFrom(dataLike).slice(0, 16);
-  return numFromBytes(data);
+  return data.length === 0 ? Zero : numFromBytes(data);
 }
 
 export const RawTransaction = mol.table({
