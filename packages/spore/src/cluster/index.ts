@@ -234,3 +234,61 @@ export async function* findSporeClustersBySigner({
     }
   }
 }
+
+/**
+ * Search on-chain clusters under the specified lock or not
+ *
+ * @param client the client to search clusters
+ * @param lock the lock of clusters
+ */
+export async function* findSporeClusters({
+  client,
+  lock,
+  order,
+  limit,
+  scriptInfos,
+}: {
+  client: ccc.Client;
+  lock?: ccc.ScriptLike;
+  order?: "asc" | "desc";
+  limit?: number;
+  scriptInfos?: SporeScriptInfoLike[];
+}): AsyncGenerator<{
+  cell: ccc.Cell;
+  cluster: ccc.Cell;
+  clusterData: ClusterDataView;
+  scriptInfo: SporeScriptInfo;
+}> {
+  for (const scriptInfo of scriptInfos ??
+    Object.values(getClusterScriptInfos(client))) {
+    if (!scriptInfo) {
+      continue;
+    }
+
+    for await (const cluster of client.findCells(
+      {
+        script: {
+          ...scriptInfo,
+          args: "",
+        },
+        scriptType: "type",
+        scriptSearchMode: "prefix",
+        withData: true,
+        filter: lock
+          ? {
+              script: lock,
+            }
+          : undefined,
+      },
+      order,
+      limit,
+    )) {
+      yield {
+        cell: cluster,
+        cluster,
+        clusterData: unpackToRawClusterData(cluster.outputData),
+        scriptInfo: SporeScriptInfo.from(scriptInfo),
+      };
+    }
+  }
+}
