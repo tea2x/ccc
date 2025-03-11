@@ -295,3 +295,72 @@ export async function* findSporesBySigner({
     }
   }
 }
+
+/**
+ * Search on-chain spores under the specified lock or not, if cluster provided, filter spores belonging to this cluster
+ *
+ * @param client the client to search spores
+ * @param lock the lock of spores
+ * @param clusterId the cluster that spores belong to. "" to find public spores
+ * @param scriptInfos the deployed script infos of spores
+ * @returns specified spore cells
+ */
+export async function* findSpores({
+  client,
+  lock,
+  clusterId,
+  scriptInfos,
+  limit,
+  order,
+}: {
+  client: ccc.Client;
+  lock?: ccc.ScriptLike;
+  order?: "asc" | "desc";
+  limit?: number;
+  clusterId?: ccc.HexLike;
+  scriptInfos?: SporeScriptInfoLike[];
+}): AsyncGenerator<{
+  cell: ccc.Cell;
+  spore: ccc.Cell;
+  sporeData: SporeDataView;
+  scriptInfo: SporeScriptInfo;
+}> {
+  for (const scriptInfo of scriptInfos ??
+    Object.values(getSporeScriptInfos(client))) {
+    if (!scriptInfo) {
+      continue;
+    }
+    for await (const spore of client.findCells(
+      {
+        script: {
+          ...scriptInfo,
+          args: [],
+        },
+        scriptType: "type",
+        scriptSearchMode: "prefix",
+        withData: true,
+        filter: lock
+          ? {
+              script: lock,
+            }
+          : undefined,
+      },
+      order,
+      limit,
+    )) {
+      const sporeData = unpackToRawSporeData(spore.outputData);
+      if (
+        !clusterId ||
+        (clusterId === "" && !sporeData.clusterId) ||
+        sporeData.clusterId === ccc.hexFrom(clusterId)
+      ) {
+        yield {
+          cell: spore,
+          spore,
+          sporeData,
+          scriptInfo: SporeScriptInfo.from(scriptInfo),
+        };
+      }
+    }
+  }
+}
