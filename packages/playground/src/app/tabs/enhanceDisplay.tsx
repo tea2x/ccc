@@ -1,9 +1,8 @@
 import { ccc } from "@ckb-ccc/connector-react";
+import React, { ReactNode } from "react";
 import { Address } from "../components/Address";
-import { Transaction } from "../components/Transaction";
 import { CellInfo } from "../components/Cell";
-import { ReactNode } from "react";
-import React from "react";
+import { Transaction } from "../components/Transaction";
 
 export async function enhanceDisplay(
   msg: unknown,
@@ -66,7 +65,7 @@ export async function enhanceDisplay(
           })}
         />
       );
-    } catch (err) {}
+    } catch (_err) {}
   }
 
   if (msg instanceof ccc.Signer) {

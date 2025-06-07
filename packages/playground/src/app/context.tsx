@@ -1,5 +1,7 @@
 "use client";
 
+import { ccc } from "@ckb-ccc/connector-react";
+import { Link } from "lucide-react";
 import React, {
   createContext,
   ReactNode,
@@ -7,9 +9,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { ccc } from "@ckb-ccc/connector-react";
 import { formatString, formatTimestamp } from "./utils";
-import { Link } from "lucide-react";
 
 function WalletIcon({
   wallet,

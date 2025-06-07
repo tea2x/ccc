@@ -1,11 +1,11 @@
-import { ccc } from "@ckb-ccc/connector-react";
 import * as cccLib from "@ckb-ccc/ccc";
 import * as cccAdvancedLib from "@ckb-ccc/ccc/advanced";
+import { ccc } from "@ckb-ccc/connector-react";
 import * as dobRenderLib from "@nervina-labs/dob-render";
 import * as React from "react";
 import ts from "typescript";
-import { vlqDecode } from "./vlq";
 import { formatTimestamp } from "../utils";
+import { vlqDecode } from "./vlq";
 
 function findSourcePos(
   sourceMap: string | undefined,

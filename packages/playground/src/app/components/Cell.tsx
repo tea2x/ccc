@@ -1,14 +1,14 @@
 import { ccc } from "@ckb-ccc/connector-react";
+import { useEffect, useMemo, useState } from "react";
+import { useApp } from "../context";
 import {
   formatString,
   formatTimestamp,
   getScriptColor,
   useGetExplorerLink,
 } from "../utils";
-import { useEffect, useMemo, useState } from "react";
-import { RandomWalk } from "./RandomWalk";
-import { useApp } from "../context";
 import { Address } from "./Address";
+import { RandomWalk } from "./RandomWalk";
 
 function Capacity({
   capacity,
@@ -89,7 +89,7 @@ export function CellInfo({
         setCellOutput(cellOutput);
         setOutputData(outputData);
         setDaoProfit(extraCapacity);
-      } catch (err) {
+      } catch (_err) {
         return;
       }
     })();
@@ -164,7 +164,7 @@ export function Cell({
         setCellOutput(cellOutput);
         setOutputData(outputData);
         setDaoProfit(extraCapacity);
-      } catch (err) {
+      } catch (_err) {
         return;
       }
     })();

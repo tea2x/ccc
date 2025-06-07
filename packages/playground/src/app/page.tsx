@@ -1,10 +1,9 @@
 "use client";
 
+import { ccc } from "@ckb-ccc/connector-react";
+import axios from "axios";
 import { bech32 } from "bech32";
 import WebSocket from "isomorphic-ws";
-import { ccc } from "@ckb-ccc/connector-react";
-import { useEffect, useState, useCallback } from "react";
-import { useApp } from "./context";
 import {
   Braces,
   Bug,
@@ -18,16 +17,17 @@ import {
   StepForward,
   Trash,
 } from "lucide-react";
-import { Button } from "./components/Button";
-import { DEFAULT_TRANSFER } from "./examples";
-import { About } from "./tabs/About";
-import { Console } from "./tabs/Console";
-import axios from "axios";
-import { execute } from "./execute";
-import { Editor } from "./components/Editor";
-import * as prettier from "prettier/standalone";
 import * as prettierTs from "prettier/parser-typescript";
 import * as prettierEstree from "prettier/plugins/estree";
+import * as prettier from "prettier/standalone";
+import { useCallback, useEffect, useState } from "react";
+import { Button } from "./components/Button";
+import { Editor } from "./components/Editor";
+import { useApp } from "./context";
+import { DEFAULT_TRANSFER } from "./examples";
+import { execute } from "./execute";
+import { About } from "./tabs/About";
+import { Console } from "./tabs/Console";
 
 async function shareToNostr(
   client: ccc.Client,

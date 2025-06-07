@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
-import { useApp } from "../context";
-import { Info, Play, X } from "lucide-react";
-import React from "react";
-import { enhanceDisplay } from "./enhanceDisplay";
 import { ccc } from "@ckb-ccc/connector-react";
+import { Info, Play, X } from "lucide-react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useApp } from "../context";
+import { enhanceDisplay } from "./enhanceDisplay";
 
 export function Console({ onRun }: { onRun?: () => void }) {
   const { messages } = useApp();

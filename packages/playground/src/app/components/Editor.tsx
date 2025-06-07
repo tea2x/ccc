@@ -1,8 +1,8 @@
 import MonacoEditor from "@monaco-editor/react";
+import { shikiToMonaco } from "@shikijs/monaco";
 import { LoaderCircle } from "lucide-react";
 import { editor } from "monaco-editor";
 import { useEffect, useRef, useState } from "react";
-import { shikiToMonaco } from "@shikijs/monaco";
 import { createHighlighter } from "shiki";
 
 const ReactSource = require.context(
