@@ -145,6 +145,10 @@ export function Editor({
             "import { ccc } from '@ckb-ccc/core'; export function render(...msgs: unknown[]): Promise<void>; export const signer: ccc.Signer; export const client: ccc.Client;",
             "file:///node_modules/@ckb-ccc/playground/index.d.ts",
           );
+          monaco.languages.typescript.typescriptDefaults.addExtraLib(
+            '{ "type": "commonjs" }',
+            "file:///node_modules/@ckb-ccc/playground/package.json",
+          );
 
           monaco.languages.register({ id: "typescript" });
           createHighlighter({
