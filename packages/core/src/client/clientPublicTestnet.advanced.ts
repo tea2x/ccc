@@ -135,7 +135,7 @@ export const TESTNET_SCRIPTS: Record<KnownScript, ScriptInfoLike> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0xd23761b364210735c19c60561d213fb3beae2fd6172743719eff6920e020baac",
+            args: "0x1c9fc299ba0570d077b4d7fb9acff1ccc0de69d369942d82678bae937c44ec30",
           },
         },
         {
@@ -151,7 +151,7 @@ export const TESTNET_SCRIPTS: Record<KnownScript, ScriptInfoLike> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0x9a93803da5f8a3d11d47ca04b5a12109b840409febbf4a37c72aabb6a69c1bda",
+            args: "0x27f0d3ccdc2fcd52ae31fbacad5f86b97bc147d7093e4807cd6e3d21c1fe6841",
           },
         },
         {
@@ -167,7 +167,7 @@ export const TESTNET_SCRIPTS: Record<KnownScript, ScriptInfoLike> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0x13f8e9fe476346f10c0a85cd3817e3488313efaa40efcbe352e415da4db711fa",
+            args: "0x0ac15fe5b2d059ec39de03f2d3159d5463abb918a1a07a9fa00d2b9c61d89ef3",
           },
         },
         {
@@ -183,7 +183,7 @@ export const TESTNET_SCRIPTS: Record<KnownScript, ScriptInfoLike> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0x70678dc6e21d4fd8ed59d464db31c517d665489be546a2831f093d48d6ea5ad0",
+            args: "0xc7bafc5550ccad7cea32c27764f5df6aca4de547da65e3e67fa08477a1af7f5e",
           },
         },
         {
@@ -199,7 +199,7 @@ export const TESTNET_SCRIPTS: Record<KnownScript, ScriptInfoLike> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0xf234b81ed08fb76e1a6afed4d7902d5925e0fae92dd5a585094a18fbc187842c",
+            args: "0x71decef9ca8725e64ec99a5521790d16b8d5daadb4989b45dd6ab51806a8c0e4",
           },
         },
       ],
