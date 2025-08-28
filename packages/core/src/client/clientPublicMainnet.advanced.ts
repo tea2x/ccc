@@ -120,7 +120,7 @@ export const MAINNET_SCRIPTS: Record<KnownScript, ScriptInfoLike | undefined> =
           cellDep: {
             outPoint: {
               txHash:
-                "0xbdc3153fcb7c256d007be758c0b50c8da60b5ac0e44ae9e11d3dcc5b73d2b347",
+                "0x8a605a4402cadda69fa64fd25cbbd74058e3eb86a7a72aee3d25df278564d31b",
               index: 0,
             },
             depType: "code",
@@ -129,14 +129,14 @@ export const MAINNET_SCRIPTS: Record<KnownScript, ScriptInfoLike | undefined> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0xd00c84f0ec8fd441c38bc3f87a371f547190f2fcff88e642bc5bf54b9e318323",
+            args: "0x2d1f2d4d1514ccc3bb4f04f5437a5ae30d00636ee57cedd2c70ab3ea75b62adc",
           },
         },
         {
           cellDep: {
             outPoint: {
               txHash:
-                "0xbac0f6f0a177a03974870df47ab0c3e761c5dd19e9ca165358d0b72bd7f433f5",
+                "0x8a605a4402cadda69fa64fd25cbbd74058e3eb86a7a72aee3d25df278564d31b",
               index: 1,
             },
             depType: "code",
@@ -145,14 +145,14 @@ export const MAINNET_SCRIPTS: Record<KnownScript, ScriptInfoLike | undefined> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0xaede124e8eca8ea4a0029d5f0999299a3f9a4090c6fd6f83d88c41707cc8aa75",
+            args: "0xc086090432098835ec542a1b94bdd1b842c5aa1ccd1616873fe77f4a04044417",
           },
         },
         {
           cellDep: {
             outPoint: {
               txHash:
-                "0xbac0f6f0a177a03974870df47ab0c3e761c5dd19e9ca165358d0b72bd7f433f5",
+                "0x8a605a4402cadda69fa64fd25cbbd74058e3eb86a7a72aee3d25df278564d31b",
               index: 2,
             },
             depType: "code",
@@ -161,14 +161,14 @@ export const MAINNET_SCRIPTS: Record<KnownScript, ScriptInfoLike | undefined> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0x2409a9568c2ae67e73e12b1f0193c9a44c782ec1c73627b3c92ad2d0fb6128ed",
+            args: "0x165b225c6fbed7e655b024384d9083de3243375f9893706f4452858ecd694e96",
           },
         },
         {
           cellDep: {
             outPoint: {
               txHash:
-                "0xbac0f6f0a177a03974870df47ab0c3e761c5dd19e9ca165358d0b72bd7f433f5",
+                "0x8a605a4402cadda69fa64fd25cbbd74058e3eb86a7a72aee3d25df278564d31b",
               index: 3,
             },
             depType: "code",
@@ -177,14 +177,14 @@ export const MAINNET_SCRIPTS: Record<KnownScript, ScriptInfoLike | undefined> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0xaf96ed62f5997c4a4814058545bc958124bada97fcd42955756e3c078da64523",
+            args: "0xafb8408d0094ab944e6286aac750b9bb854ac0bcb66dfe5c60559744a700e70c",
           },
         },
         {
           cellDep: {
             outPoint: {
               txHash:
-                "0xbac0f6f0a177a03974870df47ab0c3e761c5dd19e9ca165358d0b72bd7f433f5",
+                "0x8a605a4402cadda69fa64fd25cbbd74058e3eb86a7a72aee3d25df278564d31b",
               index: 4,
             },
             depType: "code",
@@ -193,7 +193,7 @@ export const MAINNET_SCRIPTS: Record<KnownScript, ScriptInfoLike | undefined> =
             codeHash:
               "0x00000000000000000000000000000000000000000000000000545950455f4944",
             hashType: "type",
-            args: "0xfa9f0c3599dc23b9489a11dfedb11489c7ad342982848495856966ed23a6bc7d",
+            args: "0x773bf0647be24b4e18ef44068fd069b9de5549c4b86be227779ceb9179598ec4",
           },
         },
       ],
