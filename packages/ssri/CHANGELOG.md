@@ -1,5 +1,21 @@
 # @ckb-ccc/ssri
 
+## 0.2.15
+### Patch Changes
+
+- Updated dependencies [[`1eb030f`](https://github.com/ckb-devrel/ccc/commit/1eb030fde95c545561a092a4025747e6d14fc8de)]:
+  - @ckb-ccc/core@1.11.4
+
+## 0.2.14
+### Patch Changes
+
+
+
+- [#282](https://github.com/ckb-devrel/ccc/pull/282) [`d4fb021`](https://github.com/ckb-devrel/ccc/commit/d4fb021472a83b7871fd44824e9bb786cc412252) Thanks [@dependabot](https://github.com/apps/dependabot)! - chore(deps): bump dependency version
+
+- Updated dependencies [[`d4fb021`](https://github.com/ckb-devrel/ccc/commit/d4fb021472a83b7871fd44824e9bb786cc412252)]:
+  - @ckb-ccc/core@1.11.3
+
 ## 0.2.13
 ### Patch Changes
 
