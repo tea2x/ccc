@@ -1,5 +1,43 @@
 # @ckb-ccc/core
 
+## 1.12.0
+### Minor Changes
+
+
+
+- [`12c1e6b`](https://github.com/ckb-devrel/ccc/commit/12c1e6b751de220898ed94998027c7cf07c7a7dc) Thanks [@Hanssen0](https://github.com/Hanssen0)! - feat(core): `messageHashBtcEcdsa`
+  
+  Removed dependency on outdated `bitcoinjs-message`.
+
+
+- [`50b5537`](https://github.com/ckb-devrel/ccc/commit/50b553715f150ca7c68a661c7cbf8696ec674846) Thanks [@Hanssen0](https://github.com/Hanssen0)! - feat(core): add `CellAny`
+  
+  It's definitely a mistake to name `CellOnChain` `Cell`, but there is nothing we can do with that right now. To avoid more duplicate code, `CellAny` was added to represent a cell that's on-chain or off-chain.
+
+### Patch Changes
+
+
+
+- [#290](https://github.com/ckb-devrel/ccc/pull/290) [`1b9b197`](https://github.com/ckb-devrel/ccc/commit/1b9b19754002461bbd37677a7a44a15c31fd537f) Thanks [@Hanssen0](https://github.com/Hanssen0)! - chore(deps): bump dependency version with `--latest`
+
+
+
+- [`d382469`](https://github.com/ckb-devrel/ccc/commit/d382469ffca7934f19d0156af6939d7794808265) Thanks [@Hanssen0](https://github.com/Hanssen0)! - feat(core): default `Signer.prepareTransaction`
+
+## 1.11.5
+### Patch Changes
+
+
+
+- [#306](https://github.com/ckb-devrel/ccc/pull/306) [`cec9b39`](https://github.com/ckb-devrel/ccc/commit/cec9b39345fc37a6ae72c0774059b2e31efc9e89) Thanks [@Hanssen0](https://github.com/Hanssen0)! - fix(core): nostr signature verification
+
+
+
+- [#304](https://github.com/ckb-devrel/ccc/pull/304) [`c95913f`](https://github.com/ckb-devrel/ccc/commit/c95913f58c889c9d8c0b164014f9917501c11dbc) Thanks [@Hanssen0](https://github.com/Hanssen0)! - fix(core): `ccc.mol.codec` decorator
+  
+  * The runtime will invoke the decorator with 2 arguments, but the decorator expects 1.
+  * Decorator function return type '...' is not assignable to type '...'
+
 ## 1.11.4
 ### Patch Changes
 
