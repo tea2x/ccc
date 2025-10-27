@@ -318,6 +318,8 @@ export type CellAnyLike = {
  * @public
  */
 export class CellAny {
+  public outPoint: OutPoint | undefined;
+
   /**
    * Creates an instance of CellAny.
    *
@@ -329,8 +331,10 @@ export class CellAny {
   constructor(
     public cellOutput: CellOutput,
     public outputData: Hex,
-    public outPoint?: OutPoint,
-  ) {}
+    outPoint?: OutPoint,
+  ) {
+    this.outPoint = outPoint;
+  }
 
   /**
    * Creates a `CellAny` instance from a `CellAnyLike` object.
@@ -1922,12 +1926,6 @@ export class Transaction extends mol.Entity.Base<
     );
   }
 
-  /**
-   * @deprecated Use `Udt.getInputsBalance` from `@ckb-ccc/udt` instead
-   * @param client
-   * @param type
-   * @returns
-   */
   async getInputsUdtBalance(client: Client, type: ScriptLike): Promise<Num> {
     return reduceAsync(
       this.inputs,
@@ -1943,11 +1941,6 @@ export class Transaction extends mol.Entity.Base<
     );
   }
 
-  /**
-   * @deprecated Use `Udt.getOutputsBalance` from `@ckb-ccc/udt` instead
-   * @param type
-   * @returns
-   */
   getOutputsUdtBalance(type: ScriptLike): Num {
     return this.outputs.reduce((acc, output, i) => {
       if (!output.type?.eq(type)) {
@@ -2065,7 +2058,6 @@ export class Transaction extends mol.Entity.Base<
    * This method succeeds only if enough balance is collected.
    *
    * It will try to collect at least two inputs, even when the first input already contains enough balance, to avoid extra occupation fees introduced by the change cell. An edge case: If the first cell has the same amount as the output, a new cell is not needed.
-   * @deprecated Use `Udt.completeInputsByBalance` from `@ckb-ccc/udt` instead
    * @param from - The signer to complete the inputs.
    * @param type - The type script of the UDT.
    * @param balanceTweak - The tweak of the balance.
